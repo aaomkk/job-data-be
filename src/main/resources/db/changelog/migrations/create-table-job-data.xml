@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-table-job-data" author="kantarat">
+        <createTable tableName="job-data">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="timestamp" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employer" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="location" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="job_title" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="years_at_employer" type="double">
+                <constraints nullable="true"/>
+            </column>
+            <column name="years_of_experience" type="double">
+                <constraints nullable="true"/>
+            </column>
+            <column name="salary" type="double">
+                <constraints nullable="true"/>
+            </column>
+            <column name="signing_bonus" type="double">
+                <constraints nullable="true"/>
+            </column>
+            <column name="annual_bonus" type="double">
+                <constraints nullable="true"/>
+            </column>
+            <column name="annual_stock_bonus" type="double">
+                <constraints nullable="true"/>
+            </column>
+            <column name="gender" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="additional_comments" type="text">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="set-id-auto-increment" author="kantarat">
+        <modifyDataType tableName="job-data" columnName="id" newDataType="int auto_increment"/>
+    </changeSet>
+
+    <!-- Load Data Changeset -->
+    <changeSet id="load-job-data" author="kantarat">
+        <loadData
+                file="classpath:salary_clean.csv"
+                tableName="job-data"
+                separator=","
+                header="true">
+            <column name="timestamp" type="string"/>
+            <column name="employer" type="string"/>
+            <column name="location" type="string"/>
+            <column name="job_title" type="string"/>
+            <column name="years_at_employer" type="double"/>
+            <column name="years_of_experience" type="double"/>
+            <column name="salary" type="double"/>
+            <column name="signing_bonus" type="double"/>
+            <column name="annual_stock_bonus" type="double"/>
+            <column name="gender" type="string"/>
+            <column name="additional_comments" type="string"/>
+            <!-- Add more columns as needed -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
